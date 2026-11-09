@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090d18">
+  <title>Uma flor para você ❤️</title>
+  <style>
+    :root {
+      --night: #090d18;
+      --blue: #14243d;
+      --red: #ef5268;
+      --pink: #ff9aaa;
+      --cream: #fff0ec;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow-x: hidden;
+      color: var(--cream);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(ellipse at 50% 42%, rgba(49, 77, 119, .55), transparent 55%),
+        radial-gradient(ellipse at 10% 90%, rgba(135, 34, 59, .25), transparent 45%),
+        linear-gradient(145deg, #080b13, var(--blue) 58%, #160e1b);
+      display: grid;
+      place-items: center;
+      padding: 28px 16px;
+    }
+
+    .card {
+      width: min(100%, 560px);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: clamp(24px, 6vw, 42px) clamp(18px, 5vw, 38px);
+      border: 1px solid rgba(255, 255, 255, .13);
+      border-radius: 28px;
+      background: rgba(8, 12, 23, .68);
+      box-shadow: 0 22px 70px rgba(0, 0, 0, .35);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      color: #fff4f1;
+      font-size: clamp(1.65rem, 6vw, 2.25rem);
+      line-height: 1.15;
+    }
+
+    p {
+      color: #f6dfe2;
+      font-size: clamp(.98rem, 3.8vw, 1.08rem);
+      line-height: 1.65;
+      margin: 12px 0;
+    }
+
+    .intro { max-width: 440px; margin-inline: auto; }
+
+    .flower-scene {
+      height: 270px;
+      display: grid;
+      place-items: center;
+      margin: 8px auto 0;
+      position: relative;
+    }
+
+    .flower {
+      width: 190px;
+      height: 240px;
+      position: relative;
+      transform-origin: 50% 90%;
+      animation: sway 4s ease-in-out infinite;
+    }
+
+    .stem {
+      position: absolute;
+      width: 8px;
+      height: 130px;
+      left: 91px;
+      top: 94px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #286b48, #72b77a, #286b48);
+      transform: rotate(3deg);
+      transform-origin: top;
+    }
+
+    .leaf {
+      position: absolute;
+      width: 54px;
+      height: 27px;
+      top: 151px;
+      left: 45px;
+      background: linear-gradient(135deg, #8acb83, #286b48);
+      border-radius: 100% 0 100% 0;
+      transform: rotate(18deg);
+      box-shadow: inset -4px -3px 0 rgba(0,0,0,.12);
+    }
+
+    .leaf.right {
+      left: 93px;
+      top: 174px;
+      transform: rotate(165deg) scale(.9);
+    }
+
+    .petals {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      top: 13px;
+      left: 20px;
+      transform-origin: center 78%;
+      animation: bloom 2.2s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .petal {
+      position: absolute;
+      width: 62px;
+      height: 84px;
+      left: 44px;
+      top: 5px;
+      border-radius: 55% 55% 45% 45%;
+      transform-origin: 50% 82%;
+      background: linear-gradient(145deg, #ff9aa5 0%, #ef405b 48%, #a90f38 100%);
+      box-shadow: inset -7px -8px 12px rgba(100, 0, 30, .2), 0 3px 12px rgba(239, 64, 91, .18);
+    }
+
+    .petal:nth-child(1) { transform: rotate(0deg) translateY(-9px); z-index: 5; }
+    .petal:nth-child(2) { transform: rotate(60deg) translateY(-8px); z-index: 4; }
+    .petal:nth-child(3) { transform: rotate(120deg) translateY(-8px); z-index: 3; }
+    .petal:nth-child(4) { transform: rotate(180deg) translateY(-8px); z-index: 2; }
+    .petal:nth-child(5) { transform: rotate(240deg) translateY(-8px); z-index: 3; }
+    .petal:nth-child(6) { transform: rotate(300deg) translateY(-8px); z-index: 4; }
+
+    .rose-center {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      top: 54px;
+      left: 51px;
+      z-index: 7;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffb1a8, #d91f4b 60%, #8d1237);
+      box-shadow: inset 0 0 0 5px rgba(120, 0, 35, .12);
+    }
+
+    .rose-center::after {
+      content: "";
+      position: absolute;
+      width: 23px;
+      height: 23px;
+      top: 12px;
+      left: 13px;
+      border: 4px solid rgba(255, 190, 180, .75);
+      border-left-color: transparent;
+      border-radius: 50%;
+      transform: rotate(-35deg);
+    }
+
+    .soil {
+      position: absolute;
+      width: 125px;
+      height: 12px;
+      bottom: 5px;
+      left: 32px;
+      border-radius: 50%;
+      background: rgba(0,0,0,.25);
+      filter: blur(5px);
+    }
+
+    .caption {
+      color: #ffc0c8;
+      font-weight: 600;
+      margin-top: -3px;
+    }
+
+    .note {
+      margin: 18px 0 22px;
+      padding: 15px;
+      border-radius: 17px;
+      background: rgba(239, 82, 104, .11);
+      border: 1px solid rgba(255, 154, 170, .18);
+    }
+
+    button {
+      width: 100%;
+      max-width: 390px;
+      min-height: 58px;
+      padding: 15px 20px;
+      border: 0;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(110deg, #e83f60, #ff7184);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+      cursor: pointer;
+      box-shadow: 0 9px 25px rgba(232, 63, 96, .28);
+      transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.08); }
+    button:active { transform: scale(.97); }
+    button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+
+    .surprise {
+      display: none;
+      margin: 20px 0 0;
+      padding: 18px;
+      color: #fff2ef;
+      line-height: 1.7;
+      border-radius: 18px;
+      background: rgba(255, 154, 170, .13);
+      border: 1px solid rgba(255, 154, 170, .35);
+      animation: pop .55s cubic-bezier(.2,1.5,.5,1) both;
+    }
+
+    .surprise.show { display: block; }
+    .signature { color: #ff9aaa; font-size: .9rem; margin-top: 20px; }
+
+    .floating-heart {
+      position: fixed;
+      z-index: 0;
+      bottom: -35px;
+      color: rgba(255, 111, 139, .65);
+      pointer-events: none;
+      user-select: none;
+      animation: float-up linear forwards;
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+    @keyframes bloom {
+      0% { transform: scale(.08) rotate(-35deg); opacity: .2; }
+      70% { transform: scale(1.12) rotate(5deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+    @keyframes float-up {
+      from { transform: translateY(0) rotate(0deg); opacity: 0; }
+      12% { opacity: 1; }
+      to { transform: translateY(-115vh) rotate(35deg); opacity: 0; }
+    }
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(12px) scale(.92); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Ei, você! Sim, você mesmo! ❤️</h1>
+    <p class="intro">Tenho uma coisa para te entregar, mas como ainda não inventaram a teletransportação de presentes, vai essa versão virtual mesmo.</p>
+
+    <div class="flower-scene" aria-label="Uma rosa vermelha virtual">
+      <div class="flower">
+        <div class="stem"></div>
+        <div class="leaf"></div>
+        <div class="leaf right"></div>
+        <div class="petals">
+          <span class="petal"></span><span class="petal"></span>
+          <span class="petal"></span><span class="petal"></span>
+          <span class="petal"></span><span class="petal"></span>
+          <span class="rose-center"></span>
+        </div>
+        <div class="soil"></div>
+      </div>
+    </div>
+
+    <p class="caption">Uma florzinha para alegrar seu dia, já que eu não posso aparecer aí para fazer isso pessoalmente. 🌹</p>
+
+    <div class="note">
+      <p>Após uma análise criteriosa, descobri que estou com uma condição chamada vontade de te ver. O tratamento recomendado envolve beijos, abraços e contato físico. 😂</p>
+    </div>
+
+    <button id="surpriseButton" type="button">CLIQUE AQUI, SEU LINDO ❤️</button>
+
+    <div id="surpriseMessage" class="surprise" role="status" aria-live="polite">
+      Você recebeu uma flor porque eu sou uma querida. Mas não se acostume, viu? O restante do carinho só será liberado mediante comparecimento presencial. Beijos não inclusos no frete! ❤️
+    </div>
+
+    <p class="signature">Feito com carinho (e um pouquinho de saudade). 💌</p>
+  </main>
+
+  <script>
+    const button = document.getElementById("surpriseButton");
+    const surpriseMessage = document.getElementById("surpriseMessage");
+
+    function createHeart() {
+      const heart = document.createElement("span");
+      heart.className = "floating-heart";
+      heart.textContent = Math.random() > 0.5 ? "❤️" : "💕";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (16 + Math.random() * 22) + "px";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+
+      heart.addEventListener("animationend", () => heart.remove());
+    }
+
+    button.addEventListener("click", () => {
+      surpriseMessage.classList.add("show");
+      button.textContent = "EU AVISEI QUE ERA ESPECIAL! ❤️";
+      button.setAttribute("aria-expanded", "true");
+
+      // Solta vários corações quando o botão é clicado.
+      for (let i = 0; i < 28; i++) {
+        setTimeout(createHeart, i * 65);
+      }
+    });
+
+    // Alguns coraçõezinhos discretos já ficam flutuando no fundo.
+    for (let i = 0; i < 7; i++) {
+      setTimeout(createHeart, i * 650);
+    }
+  </script>
+</body>
+</html>
